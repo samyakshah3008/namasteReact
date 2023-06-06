@@ -13,21 +13,8 @@
     </div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script>
-        // Example of nested Html elements with use of ReactJS
-        const childDiv = React.createElement("div", {
-            id: "child"
-        }, "Child Div 1")
-        const childDiv2 = React.createElement("div", {
-            id: "child"
-        }, "Child Div 2")
-        const parentDiv = React.createElement("div", {
-            id: "parent-div"
-        }, [childDiv, childDiv2])
-        const rootID = document.querySelector("#root")
-        const root = ReactDOM.createRoot(rootID)
-        root.render(parentDiv)
-    </script>
+    <script src="./app.js"></script>
+
 </body>
 
 </html>
