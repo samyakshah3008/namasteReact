@@ -11,3 +11,7 @@
   align-items: center;
   gap: 3rem;
 }
+
+.search-input {
+  margin: 3rem 0rem;
+}

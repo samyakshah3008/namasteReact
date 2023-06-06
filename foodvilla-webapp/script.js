@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import NavBar from "./components/NavBar";
@@ -8,15 +8,32 @@ import About from "./components/About";
 import "./style.css";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-// import { lazy, Suspense } from "react";
-// const About = lazy(() => import("./components/About"));
+import { lazy, Suspense } from "react";
+import About from "./components/About";
+import UserContext from "./contexts/userContext";
+import HeadingContext from "./contexts/headingContext";
+import RestaurantsContext from "./contexts/restaurantsContext";
+const Instamart = lazy(() => import("./components/Instamart"));
 const rootID = document.querySelector("#root");
 
 const App = () => {
+  const [heading, setHeading] = useState("Dummy Heading");
+  const [restaurants, setRestaurants] = useState(null);
   return (
     <>
-      <NavBar />
-      <Outlet />
+      <RestaurantsContext.Provider value={{ restaurants, setRestaurants }}>
+        <HeadingContext.Provider value={{ heading, setHeading }}>
+          <UserContext.Provider
+            value={{
+              name: "Ankush",
+              age: 33,
+            }}
+          >
+            <NavBar />
+          </UserContext.Provider>
+          <Outlet />
+        </HeadingContext.Provider>
+      </RestaurantsContext.Provider>
       <Footer />
     </>
   );
@@ -33,11 +50,7 @@ const routes = createBrowserRouter([
         path: "/",
       },
       {
-        element: (
-          // <Suspense>
-          <About />
-          // </Suspense>
-        ),
+        element: <About />,
         path: "/about",
         children: [
           {
@@ -49,6 +62,14 @@ const routes = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense>
+            <Instamart />
+          </Suspense>
+        ),
       },
     ],
   },

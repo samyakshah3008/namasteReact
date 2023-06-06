@@ -1,9 +1,12 @@
 import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
-import { useRestaurants } from "../hooks/useRestaurants";
+import useRestaurants from "../hooks/useRestaurants";
+import { useContext } from "react";
+import RestaurantsContext from "../contexts/restaurantsContext";
 
 const Body = () => {
-  const restaurants = useRestaurants();
+  const { restaurants } = useContext(RestaurantsContext);
+
   return (
     <>
       <div className="cards-container">

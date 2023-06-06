@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CLOUDINARY_IMAGE_URL } from "../constants";
-export const useRestaurants = () => {
-  const [restaurants, setRestaurants] = useState(null);
+import RestaurantsContext from "../contexts/restaurantsContext";
+
+const useRestaurants = () => {
+  const { setRestaurants } = useContext(RestaurantsContext);
 
   useEffect(() => {
     getRestaurants();
@@ -14,5 +16,7 @@ export const useRestaurants = () => {
     setRestaurants(restaurantsData?.data?.cards[2]?.data?.data?.cards);
   };
 
-  return restaurants;
+  // return restaurantsData;
 };
+
+export default useRestaurants;
