@@ -13,6 +13,8 @@ import About from "./components/About";
 import UserContext from "./contexts/userContext";
 import HeadingContext from "./contexts/headingContext";
 import RestaurantsContext from "./contexts/restaurantsContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 const Instamart = lazy(() => import("./components/Instamart"));
 const rootID = document.querySelector("#root");
 
@@ -21,20 +23,22 @@ const App = () => {
   const [restaurants, setRestaurants] = useState(null);
   return (
     <>
-      <RestaurantsContext.Provider value={{ restaurants, setRestaurants }}>
-        <HeadingContext.Provider value={{ heading, setHeading }}>
-          <UserContext.Provider
-            value={{
-              name: "Ankush",
-              age: 33,
-            }}
-          >
-            <NavBar />
-          </UserContext.Provider>
-          <Outlet />
-        </HeadingContext.Provider>
-      </RestaurantsContext.Provider>
-      <Footer />
+      <Provider store={store}>
+        <RestaurantsContext.Provider value={{ restaurants, setRestaurants }}>
+          <HeadingContext.Provider value={{ heading, setHeading }}>
+            <UserContext.Provider
+              value={{
+                name: "Ankush",
+                age: 33,
+              }}
+            >
+              <NavBar />
+            </UserContext.Provider>
+            <Outlet />
+          </HeadingContext.Provider>
+        </RestaurantsContext.Provider>
+        <Footer />
+      </Provider>
     </>
   );
 };

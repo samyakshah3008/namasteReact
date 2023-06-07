@@ -5,7 +5,6 @@ import useRestaurants from "../hooks/useRestaurants";
 import UserContext from "../contexts/userContext";
 import HeadingContext from "../contexts/headingContext";
 import RestaurantsContext from "../contexts/restaurantsContext";
-import { CLOUDINARY_IMAGE_URL } from "../constants";
 
 const NavBar = () => {
   const [auth, setAuth] = useState(true);
@@ -15,13 +14,6 @@ const NavBar = () => {
   const restaurants = useRestaurants();
   const { setRestaurants } = useContext(RestaurantsContext);
   const { heading, setHeading } = useContext(HeadingContext);
-
-  const getAllRestaurants = async () => {
-    const restaurantsData = await fetch(CLOUDINARY_IMAGE_URL)
-      .then((res) => res.json())
-      .then((res) => res);
-    return restaurantsData;
-  };
 
   const filterRestaurant = (searchedItem) => {
     const filteredRestaurants = restaurants?.filter((restaurant) =>
